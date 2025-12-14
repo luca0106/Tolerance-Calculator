@@ -1,93 +1,102 @@
-# 📊 Calculator Toleranțe Dimensionale ISO 286
+# 📊 ISO 286 Tolerance Calculator
 
-Aplicație web React + TypeScript pentru calculul toleranțelor și abaterilor dimensionale conform standardului **ISO 286**.
+A React + TypeScript web application for calculating dimensional tolerances and deviations according to the **ISO 286** standard.
 
-## 🎯 Funcționalități
+## 🎯 Features
 
-- ✅ Calcul toleranțelor fundamentale (IT01 - IT18)
-- ✅ Suport pentru arbori și alezaje cu poziții customize
-- ✅ Dimensiuni între 60-100 mm
-- ✅ Afișare valorilor în micrometri (µm) și milimetri (mm)
-- ✅ Interfață responsivă cu **Dark Mode** (toggle ☀️/🌙)
-- ✅ Detectare automată preferință sistem (light/dark)
-- ✅ Validare input și mesaje de eroare intuitive
-- ✅ Calcul dimensiuni limită (Max/Min)
+- ✅ Fundamental tolerance calculation (IT01 - IT18)
+- ✅ Support for shafts and holes with custom positions
+- ✅ Dimensions range: 60-100 mm
+- ✅ Display values in micrometers (µm) and millimeters (mm)
+- ✅ Responsive interface with **Dark Mode** (☀️/🌙 toggle)
+- ✅ Automatic system preference detection (light/dark)
+- ✅ Input validation and intuitive error messages
+- ✅ Dimension limit calculations (Max/Min)
+- ✅ Bilingual support (Romanian/English) with **i18n**
 
-## 🚀 Instalare și rulare
+## 🚀 Installation and Usage
 
-### Cerințe
+### Requirements
 - Node.js 16+ 
-- npm sau yarn
+- npm or yarn
 
-### Instalare dependențe
+### Install Dependencies
 ```bash
 npm install
 ```
 
 ### Development
 
-Startați server-ul de development cu HMR:
+Start the development server with HMR:
 
 ```bash
 npm run dev
 ```
 
-Aplicația va fi disponibilă la `http://localhost:5173`.
+Application will be available at `http://localhost:5173`.
 
 ### Production Build
 
-Creați un build de producție:
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-### Pornire Server
+### Start Server
 
-După build, porniți serverul:
+After building, start the server:
 
 ```bash
 npm start
 ```
 
-Aplicația va fi disponibilă la `http://localhost:3000`.
+Application will be available at `http://localhost:3000`.
 
-## 📁 Structura Proiectului
+## 📁 Project Structure
 
 ```
 my-react-router-app/
 ├── app/
 │   ├── components/
-│   │   └── ToleranceCalculator.tsx    # Componenta principală
+│   │   └── ToleranceCalculator.tsx    # Main component
 │   ├── data/
-│   │   └── isoData.ts                 # Date ISO 286 consolidate
+│   │   └── isoData.ts                 # Consolidated ISO 286 data
 │   ├── routes/
 │   │   └── home.tsx
 │   ├── root.tsx
 │   └── app.css
 ├── build/
-│   ├── client/                         # Static assets compilate
-│   └── server/                         # Server-side code compilat
+│   ├── client/                         # Compiled static assets
+│   └── server/                         # Compiled server-side code
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
 ```
 
-## 🎨 Teme
+## 🌍 Internationalization (i18n)
 
-Aplicația suportă:
+The application supports multiple languages:
+- 🇷🇴 **Romanian** (default)
+- 🇬🇧 **English**
+
+Switch languages using the language toggle button in the header.
+
+## 🎨 Themes
+
+Application supports:
 - **Light Mode** (default)
-- **Dark Mode** (cu toggle button în header)
-- **Detectare automată** a preferințelor sistemului
+- **Dark Mode** (with toggle button in header)
+- **Automatic detection** of system preferences
 
-## 📊 Standardul ISO 286
+## 📊 ISO 286 Standard
 
-Calculator-ul este conforme cu standardul **ISO 286-1** care defineaza:
-- Toleranțe fundamentale (IT01 - IT18)
-- Abaterile fundamentale pentru arbori (a-z)
-- Abaterile fundamentale pentru alezaje (A-Z)
+The calculator conforms to the **ISO 286-1** standard which defines:
+- Fundamental tolerances (IT01 - IT18)
+- Fundamental deviations for shafts (a-z)
+- Fundamental deviations for holes (A-Z)
 
-## 🛠 Tehnologii
+## 🛠 Technologies
 
 - **React 19** - UI library
 - **TypeScript** - Type safety
@@ -96,7 +105,7 @@ Calculator-ul este conforme cu standardul **ISO 286-1** care defineaza:
 - **Tailwind CSS** - Styling
 - **Node.js** - Runtime
 
-## 📝 Licență
+## 📝 License
 
 MIT
 
