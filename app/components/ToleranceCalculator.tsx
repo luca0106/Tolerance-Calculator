@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getDeviationData, toleranceTable } from '../data/isoData';
 import type { ToleranceRow } from '../data/isoData';
 
@@ -9,6 +9,33 @@ export default function ToleranceCalculator() {
   const [precisionClass, setPrecisionClass] = useState('IT6');
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState('');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Detecteaza preferințele de sistem pentru dark mode
+  useEffect(() => {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDarkMode(prefersDark);
+  }, []);
+
+  // Tema CSS
+  const theme = {
+    bg: isDarkMode ? '#0f172a' : '#f0f9ff',
+    bgCard: isDarkMode ? '#1e293b' : '#ffffff',
+    textPrimary: isDarkMode ? '#f1f5f9' : '#1e293b',
+    textSecondary: isDarkMode ? '#cbd5e1' : '#94a3b8',
+    border: isDarkMode ? '#334155' : '#cbd5e1',
+    yellowBg: isDarkMode ? '#713f12' : '#fef3c7',
+    yellowBorder: isDarkMode ? '#b45309' : '#f59e0b',
+    yellowText: isDarkMode ? '#fcd34d' : '#92400e',
+    buttonBg: isDarkMode ? '#4f46e5' : '#4f46e5',
+    buttonHover: isDarkMode ? '#6366f1' : '#4338ca',
+    errorBg: isDarkMode ? '#7f1d1d' : '#fee2e2',
+    errorBorder: isDarkMode ? '#991b1b' : '#fecaca',
+    errorText: isDarkMode ? '#fca5a5' : '#991b1b',
+    successBg: isDarkMode ? '#15803d' : '#dcfce7',
+    successText: isDarkMode ? '#86efac' : '#166534',
+    inputBg: isDarkMode ? '#334155' : '#ffffff',
+  };
 
   // Opțiuni disponibile pentru poziții și IT
   const shaftPositions = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'js', 'k', 'm', 'n', 'p', 'r', 's', 't', 'u', 'v', 'x', 'y', 'z'];
@@ -91,44 +118,62 @@ export default function ToleranceCalculator() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f0f9ff', padding: '2rem' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: theme.bg, padding: '2rem', transition: 'background-color 0.3s ease' }}>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#1e293b', marginBottom: '0.5rem' }}>
+        {/* Header cu Dark Mode Toggle */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: theme.textPrimary, marginBottom: '0' }}>
             📊 Calculator Toleranțe Dimensionale
           </h1>
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: theme.bgCard,
+              border: `2px solid ${theme.border}`,
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              fontSize: '1.5rem',
+              transition: 'all 0.3s ease',
+              color: theme.textPrimary,
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = theme.border)}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = theme.bgCard)}
+            title="Toggle Dark Mode"
+          >
+            {isDarkMode ? '☀️' : '🌙'}
+          </button>
         </div>
 
         {/* Live Selection Display */}
-        <div style={{ backgroundColor: '#fef3c7', border: '2px solid #f59e0b', borderRadius: '0.5rem', padding: '1rem', marginBottom: '1.5rem' }}>
-          <p style={{ fontSize: '0.75rem', color: '#92400e', textTransform: 'uppercase', fontWeight: 'bold', marginBottom: '0.5rem' }}>Selecția ta:</p>
+        <div style={{ backgroundColor: theme.yellowBg, border: `2px solid ${theme.yellowBorder}`, borderRadius: '0.5rem', padding: '1rem', marginBottom: '1.5rem', transition: 'all 0.3s ease' }}>
+          <p style={{ fontSize: '0.75rem', color: theme.yellowText, textTransform: 'uppercase', fontWeight: 'bold', marginBottom: '0.5rem' }}>Selecția ta:</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '1rem' }}>
             <div>
-              <p style={{ fontSize: '0.75rem', color: '#b45309' }}>Tip</p>
-              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: '#1e293b' }}>{type === 'shaft' ? '🔧 Arbore' : '⭕ Alezaj'}</p>
+              <p style={{ fontSize: '0.75rem', color: theme.yellowText }}>Tip</p>
+              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textPrimary }}>{type === 'shaft' ? '🔧 Arbore' : '⭕ Alezaj'}</p>
             </div>
             <div>
-              <p style={{ fontSize: '0.75rem', color: '#b45309' }}>Poziție</p>
-              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: '#1e293b' }}>{position}</p>
+              <p style={{ fontSize: '0.75rem', color: theme.yellowText }}>Poziție</p>
+              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textPrimary }}>{position}</p>
             </div>
             <div>
-              <p style={{ fontSize: '0.75rem', color: '#b45309' }}>Precizie</p>
-              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: '#1e293b' }}>{precisionClass}</p>
+              <p style={{ fontSize: '0.75rem', color: theme.yellowText }}>Precizie</p>
+              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textPrimary }}>{precisionClass}</p>
             </div>
             <div>
-              <p style={{ fontSize: '0.75rem', color: '#b45309' }}>Dimensiune</p>
-              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: '#1e293b' }}>{dimension || '—'} mm</p>
+              <p style={{ fontSize: '0.75rem', color: theme.yellowText }}>Dimensiune</p>
+              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textPrimary }}>{dimension || '—'} mm</p>
             </div>
           </div>
         </div>
 
         {/* Input Form */}
-        <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '2rem', marginBottom: '2rem' }}>
+        <div style={{ backgroundColor: theme.bgCard, borderRadius: '0.5rem', boxShadow: isDarkMode ? '0 4px 6px rgba(0,0,0,0.3)' : '0 4px 6px rgba(0,0,0,0.1)', padding: '2rem', marginBottom: '2rem', transition: 'all 0.3s ease' }}>
           
           {/* Dimensiune */}
           <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: '#1e293b' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: theme.textPrimary }}>
               📏 Dimensiune nominală (mm):
             </label>
             <input
@@ -140,23 +185,24 @@ export default function ToleranceCalculator() {
               style={{
                 width: '100%',
                 padding: '0.75rem',
-                border: '2px solid #cbd5e1',
+                border: `2px solid ${theme.border}`,
                 borderRadius: '0.25rem',
                 fontSize: '1rem',
-                color: '#1e293b',
-                backgroundColor: '#ffffff',
+                color: theme.textPrimary,
+                backgroundColor: theme.inputBg,
+                transition: 'all 0.3s ease',
               }}
             />
-            <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem' }}>Interval: 60 - 100 mm</p>
+            <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginTop: '0.25rem' }}>Interval: 60 - 100 mm</p>
           </div>
 
           {/* Type */}
           <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: '#1e293b' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: theme.textPrimary }}>
               🔧 Tip:
             </label>
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: theme.textPrimary }}>
                 <input
                   type="radio"
                   value="shaft"
@@ -165,7 +211,7 @@ export default function ToleranceCalculator() {
                 />
                 Arbore
               </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: theme.textPrimary }}>
                 <input
                   type="radio"
                   value="hole"
@@ -179,7 +225,7 @@ export default function ToleranceCalculator() {
 
           {/* Position */}
           <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: '#1e293b' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: theme.textPrimary }}>
               📍 Poziția toleranței:
             </label>
             <select
@@ -188,11 +234,12 @@ export default function ToleranceCalculator() {
               style={{
                 width: '100%',
                 padding: '0.75rem',
-                border: '2px solid #cbd5e1',
+                border: `2px solid ${theme.border}`,
                 borderRadius: '0.25rem',
                 fontSize: '1rem',
-                backgroundColor: '#ffffff',
-                color: '#1e293b',
+                backgroundColor: theme.inputBg,
+                color: theme.textPrimary,
+                transition: 'all 0.3s ease',
               }}
             >
               {type === 'shaft' ? (
@@ -249,7 +296,7 @@ export default function ToleranceCalculator() {
 
           {/* Precision Class */}
           <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: '#1e293b' }}>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: theme.textPrimary }}>
               ⚙️ Treapta de precizie:
             </label>
             <select
@@ -258,11 +305,12 @@ export default function ToleranceCalculator() {
               style={{
                 width: '100%',
                 padding: '0.75rem',
-                border: '2px solid #cbd5e1',
+                border: `2px solid ${theme.border}`,
                 borderRadius: '0.25rem',
                 fontSize: '1rem',
-                backgroundColor: '#ffffff',
-                color: '#1e293b',
+                backgroundColor: theme.inputBg,
+                color: theme.textPrimary,
+                transition: 'all 0.3s ease',
               }}
             >
               <option value="IT01">IT01 - Precizie foarte fină</option>
@@ -294,16 +342,17 @@ export default function ToleranceCalculator() {
             style={{
               width: '100%',
               padding: '0.75rem',
-              backgroundColor: '#4f46e5',
+              backgroundColor: theme.buttonBg,
               color: 'white',
               border: 'none',
               borderRadius: '0.25rem',
               cursor: 'pointer',
               fontWeight: 'bold',
               fontSize: '1rem',
+              transition: 'all 0.3s ease',
             }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#4338ca')}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#4f46e5')}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = theme.buttonHover)}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = theme.buttonBg)}
           >
             ✓ Calculează
           </button>
@@ -311,7 +360,7 @@ export default function ToleranceCalculator() {
 
         {/* Error */}
         {error && (
-          <div style={{ backgroundColor: '#fee2e2', border: '1px solid #fecaca', color: '#991b1b', padding: '1rem', borderRadius: '0.5rem', marginBottom: '2rem' }}>
+          <div style={{ backgroundColor: theme.errorBg, border: `1px solid ${theme.errorBorder}`, color: theme.errorText, padding: '1rem', borderRadius: '0.5rem', marginBottom: '2rem', transition: 'all 0.3s ease' }}>
             {error}
           </div>
         )}
@@ -320,77 +369,77 @@ export default function ToleranceCalculator() {
         {result && (
           <div>
             {/* Results Summary Box */}
-            <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem', marginBottom: '2rem' }}>
+            <div style={{ backgroundColor: theme.bgCard, borderRadius: '0.5rem', boxShadow: isDarkMode ? '0 4px 6px rgba(0,0,0,0.3)' : '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem', marginBottom: '2rem', transition: 'all 0.3s ease' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem' }}>
                 <div>
-                  <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Dimensiune nominală</p>
+                  <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Dimensiune nominală</p>
                   <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#4f46e5' }}>{result.dimension} mm</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Tip</p>
+                  <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Tip</p>
                   <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#059669' }}>{result.typeLabel}</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Poziție</p>
+                  <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Poziție</p>
                   <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#7c3aed' }}>{result.position}</p>
                 </div>
               </div>
             </div>
 
             {/* Main Results */}
-            <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1e293b', marginBottom: '1rem' }}>
+            <div style={{ backgroundColor: theme.bgCard, borderRadius: '0.5rem', boxShadow: isDarkMode ? '0 4px 6px rgba(0,0,0,0.3)' : '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem', marginBottom: '2rem', transition: 'all 0.3s ease' }}>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: theme.textPrimary, marginBottom: '1rem' }}>
                 📊 Rezultate
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                 
                 {/* Abaterile */}
                 <div style={{ borderLeft: '4px solid #ef4444', paddingLeft: '1rem' }}>
-                  <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.25rem' }}>Abatere superioară (ES/es)</p>
+                  <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>Abatere superioară (ES/es)</p>
                   <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#ef4444' }}>{result.deviationUpper} µm</p>
                 </div>
 
                 <div style={{ borderLeft: '4px solid #3b82f6', paddingLeft: '1rem' }}>
-                  <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.25rem' }}>Abatere inferioară (EI/ei)</p>
+                  <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>Abatere inferioară (EI/ei)</p>
                   <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6' }}>{result.deviationLower} µm</p>
                 </div>
 
                 {/* Toleranță */}
                 <div style={{ borderLeft: '4px solid #f59e0b', paddingLeft: '1rem' }}>
-                  <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.25rem' }}>Toleranță fundamentală ({result.precisionClass})</p>
+                  <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>Toleranță fundamentală ({result.precisionClass})</p>
                   <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#f59e0b' }}>{result.tolerance} {result.toleranceUnit}</p>
                 </div>
 
                 {/* Toleranță calculată */}
                 <div style={{ borderLeft: '4px solid #10b981', paddingLeft: '1rem' }}>
-                  <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.25rem' }}>Toleranță (calculată)</p>
+                  <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>Toleranță (calculată)</p>
                   <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#10b981' }}>{result.calculatedTolerance} mm</p>
                 </div>
               </div>
             </div>
 
             {/* Dimensions */}
-            <div style={{ backgroundColor: '#f0fdf4', borderRadius: '0.5rem', border: '2px solid #10b981', padding: '1.5rem', marginBottom: '2rem' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: 'bold', color: '#1e293b', marginBottom: '1rem' }}>
+            <div style={{ backgroundColor: isDarkMode ? '#1e3a1f' : '#f0fdf4', borderRadius: '0.5rem', border: `2px solid ${isDarkMode ? '#10b981' : '#10b981'}`, padding: '1.5rem', marginBottom: '2rem', transition: 'all 0.3s ease' }}>
+              <h3 style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textPrimary, marginBottom: '1rem' }}>
                 📐 Dimensiuni limită
               </h3>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                 <div>
-                  <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.25rem' }}>Dimensiune maximă</p>
+                  <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>Dimensiune maximă</p>
                   <p style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#10b981' }}>{result.dimensionMax} mm</p>
-                  <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>Dn + es = {result.dimension} + {(result.deviationUpper/1000).toFixed(3)}</p>
+                  <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginTop: '0.25rem' }}>Dn + es = {result.dimension} + {(result.deviationUpper/1000).toFixed(3)}</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '0.25rem' }}>Dimensiune minimă</p>
+                  <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>Dimensiune minimă</p>
                   <p style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#10b981' }}>{result.dimensionMin} mm</p>
-                  <p style={{ fontSize: '0.75rem', color: '#6b7280', marginTop: '0.25rem' }}>Dn + ei = {result.dimension} + {(result.deviationLower/1000).toFixed(3)}</p>
+                  <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginTop: '0.25rem' }}>Dn + ei = {result.dimension} + {(result.deviationLower/1000).toFixed(3)}</p>
                 </div>
               </div>
             </div>
 
             {/* Info Card */}
-            <div style={{ backgroundColor: '#dbeafe', border: '2px solid #0284c7', borderRadius: '0.5rem', padding: '1rem', marginTop: '2rem', borderLeft: '4px solid #0284c7' }}>
-              <p style={{ color: '#0c4a6e', fontSize: '0.95rem' }}>
+            <div style={{ backgroundColor: isDarkMode ? '#0c2b42' : '#dbeafe', border: `2px solid ${isDarkMode ? '#0284c7' : '#0284c7'}`, borderRadius: '0.5rem', padding: '1rem', marginTop: '2rem', borderLeft: '4px solid #0284c7', transition: 'all 0.3s ease' }}>
+              <p style={{ color: isDarkMode ? '#7dd3fc' : '#0c4a6e', fontSize: '0.95rem' }}>
                 <strong>✅ Calculul s-a realizat cu succes!</strong><br/>
                 Valorile afișate sunt conform standardului ISO 286-1. <br/>
                 Interval de dimensiuni: {result.range} mm
