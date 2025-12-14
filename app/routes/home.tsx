@@ -3,7 +3,7 @@ import ToleranceCalculator from "../components/ToleranceCalculator";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Calculator Toleranțe Dimensionale" },
+    { title: "ISO 286 Tolerance Calculator" },
     { name: "description", content: "Calcul toleranțe și abaterilor dimensionale ISO 286" },
   ];
 }
