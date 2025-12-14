@@ -139,7 +139,7 @@ export default function ToleranceCalculator() {
             }}
             onMouseOver={(e) => (e.currentTarget.style.backgroundColor = theme.border)}
             onMouseOut={(e) => (e.currentTarget.style.backgroundColor = theme.bgCard)}
-            title="Toggle Dark Mode"
+            title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
             {isDarkMode ? '☀️' : '🌙'}
           </button>
