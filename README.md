@@ -1,32 +1,29 @@
-# Welcome to React Router!
+# Calculator Toleranțe Dimensionale
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Aplicație React TypeScript pentru calculul toleranțelor și abaterilor dimensionale conform standardului ISO 286 (Tabelul 3.7).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## 🎯 Funcționalități
 
-## Features
+- ✅ Calcul toleranțelor fundamentale pentru dimensiuni între 60-100 mm
+- ✅ Afișare valorilor în micrometri (µm) și milimetri (mm)
+- ✅ Interfață modernă cu Tailwind CSS
+- ✅ Validare input și mesaje de eroare
+- ✅ Tabel comparativ cu toate treptele de precizie (IT01 - IT18)
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## 🚀 Instalare și rulare
 
-## Getting Started
+### Cerințe
+- Node.js 16+ 
+- npm sau yarn
 
-### Installation
-
-Install the dependencies:
-
+### Instalare dependențe
 ```bash
 npm install
 ```
 
 ### Development
 
-Start the development server with HMR:
+Startați server-ul de development cu HMR:
 
 ```bash
 npm run dev

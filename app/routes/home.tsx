@@ -1,13 +1,13 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import ToleranceCalculator from "../components/ToleranceCalculator";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Calculator Toleranțe Dimensionale" },
+    { name: "description", content: "Calcul toleranțe și abaterilor dimensionale ISO 286" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return <ToleranceCalculator />;
 }
