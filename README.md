@@ -1,14 +1,17 @@
-# Calculator Toleranțe Dimensionale
+# 📊 Calculator Toleranțe Dimensionale ISO 286
 
-Aplicație React TypeScript pentru calculul toleranțelor și abaterilor dimensionale conform standardului ISO 286 (Tabelul 3.7).
+Aplicație web React + TypeScript pentru calculul toleranțelor și abaterilor dimensionale conform standardului **ISO 286**.
 
 ## 🎯 Funcționalități
 
-- ✅ Calcul toleranțelor fundamentale pentru dimensiuni între 60-100 mm
+- ✅ Calcul toleranțelor fundamentale (IT01 - IT18)
+- ✅ Suport pentru arbori și alezaje cu poziții customize
+- ✅ Dimensiuni între 60-100 mm
 - ✅ Afișare valorilor în micrometri (µm) și milimetri (mm)
-- ✅ Interfață modernă cu Tailwind CSS
-- ✅ Validare input și mesaje de eroare
-- ✅ Tabel comparativ cu toate treptele de precizie (IT01 - IT18)
+- ✅ Interfață responsivă cu **Dark Mode** (toggle ☀️/🌙)
+- ✅ Detectare automată preferință sistem (light/dark)
+- ✅ Validare input și mesaje de eroare intuitive
+- ✅ Calcul dimensiuni limită (Max/Min)
 
 ## 🚀 Instalare și rulare
 
@@ -29,55 +32,75 @@ Startați server-ul de development cu HMR:
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Aplicația va fi disponibilă la `http://localhost:5173`.
 
-## Building for Production
+### Production Build
 
-Create a production build:
+Creați un build de producție:
 
 ```bash
 npm run build
 ```
 
-## Deployment
+### Pornire Server
 
-### Docker Deployment
-
-To build and run using Docker:
+După build, porniți serverul:
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+npm start
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+Aplicația va fi disponibilă la `http://localhost:3000`.
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
+## 📁 Structura Proiectului
 
 ```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
+my-react-router-app/
+├── app/
+│   ├── components/
+│   │   └── ToleranceCalculator.tsx    # Componenta principală
+│   ├── data/
+│   │   ├── isoData.ts                 # Date ISO 286 consolidate
+│   │   ├── deviations_correct.ts      # (deprecated)
+│   │   └── toleranseTable.ts          # (deprecated)
+│   ├── routes/
+│   │   └── home.tsx
+│   ├── root.tsx
+│   └── app.css
 ├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+│   ├── client/                         # Static assets compilate
+│   └── server/                         # Server-side code compilat
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
 ```
 
-## Styling
+## 🎨 Teme
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+Aplicația suportă:
+- **Light Mode** (default)
+- **Dark Mode** (cu toggle button în header)
+- **Detectare automată** a preferințelor sistemului
+
+## 📊 Standardul ISO 286
+
+Calculator-ul este conforme cu standardul **ISO 286-1** care defineaza:
+- Tolearnțe fundamentale (IT01 - IT18)
+- Abaterile fundamentale pentru arbori (a-z)
+- Abaterile fundamentale pentru alezaje (A-Z)
+
+## 🛠 Tehnologii
+
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **React Router** - Framework
+- **Tailwind CSS** - Styling
+- **Node.js** - Runtime
+
+## 📝 Licență
+
+MIT
 
 ---
 
