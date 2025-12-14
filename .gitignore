@@ -5,3 +5,6 @@
 # React Router
 /.react-router/
 /build/
+# Deprecated data files (kept locally for reference)
+app/data/deviations_correct.ts
+app/data/toleranseTable.ts

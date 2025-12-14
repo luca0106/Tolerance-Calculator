@@ -60,9 +60,7 @@ my-react-router-app/
 │   ├── components/
 │   │   └── ToleranceCalculator.tsx    # Componenta principală
 │   ├── data/
-│   │   ├── isoData.ts                 # Date ISO 286 consolidate
-│   │   ├── deviations_correct.ts      # (deprecated)
-│   │   └── toleranseTable.ts          # (deprecated)
+│   │   └── isoData.ts                 # Date ISO 286 consolidate
 │   ├── routes/
 │   │   └── home.tsx
 │   ├── root.tsx
@@ -85,7 +83,7 @@ Aplicația suportă:
 ## 📊 Standardul ISO 286
 
 Calculator-ul este conforme cu standardul **ISO 286-1** care defineaza:
-- Tolearnțe fundamentale (IT01 - IT18)
+- Toleranțe fundamentale (IT01 - IT18)
 - Abaterile fundamentale pentru arbori (a-z)
 - Abaterile fundamentale pentru alezaje (A-Z)
 
@@ -104,4 +102,3 @@ MIT
 
 ---
 
-Built with ❤️ using React Router.
