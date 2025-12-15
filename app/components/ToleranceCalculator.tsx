@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getDeviationData, toleranceTable } from '../data/isoData';
 import type { ToleranceRow } from '../data/isoData';
 
@@ -208,6 +208,9 @@ export default function ToleranceCalculator() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState<'ro' | 'en'>('ro');
 
+  // Ref pentru scroll la rezultate
+  const resultsRef = useRef<HTMLDivElement>(null);
+
   // Detecteaza preferințele de sistem pentru dark mode
   useEffect(() => {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -315,6 +318,11 @@ export default function ToleranceCalculator() {
       dimensionMin: dimensionMin.toFixed(3),
       calculatedTolerance: calculatedTolerance.toFixed(3),
     });
+
+    // Auto-scroll la rezultate
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
   };
 
   return (
@@ -591,7 +599,7 @@ export default function ToleranceCalculator() {
 
         {/* Results */}
         {result && (
-          <div>
+          <div ref={resultsRef}>
             {/* Results Summary Box */}
             <div style={{ backgroundColor: theme.bgCard, borderRadius: '0.5rem', boxShadow: isDarkMode ? '0 4px 6px rgba(0,0,0,0.3)' : '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem', marginBottom: '2rem', transition: 'all 0.3s ease' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem' }}>
