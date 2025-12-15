@@ -5,7 +5,7 @@ import type { ToleranceRow } from '../data/isoData';
 // Traduceri
 const translations = {
   ro: {
-    title: '📊 Calculator Toleranțe Dimensionale',
+    title: 'Calculator Toleranțe Dimensionale',
     switchToLight: 'Schimbă la mod clar',
     switchToDark: 'Schimbă la mod întunecat',
     selection: 'Selecția ta:',
@@ -101,7 +101,7 @@ const translations = {
     IT18: 'IT18 - Precizie foarte grosieră',
   },
   en: {
-    title: '📊 ISO 286 Tolerance Calculator',
+    title: 'ISO 286 Tolerance Calculator',
     switchToLight: 'Switch to Light Mode',
     switchToDark: 'Switch to Dark Mode',
     selection: 'Your Selection:',
@@ -306,7 +306,7 @@ export default function ToleranceCalculator() {
     setResult({
       dimension: dim,
       range: row.range,
-      typeLabel: type === 'shaft' ? '🔧 Arbore' : '⭕ Alezaj',
+      type: type,
       position: position,
       positionLabel: position,
       precisionClass,
@@ -383,7 +383,7 @@ export default function ToleranceCalculator() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '1rem' }}>
             <div>
               <p style={{ fontSize: '0.75rem', color: theme.yellowText }}>{t('type')}</p>
-              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textPrimary }}>{type === 'shaft' ? `🔧 ${t('shaft')}` : `⭕ ${t('hole')}`}</p>
+              <p style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textPrimary }}>{type === 'shaft' ? t('shaft') : t('hole')}</p>
             </div>
             <div>
               <p style={{ fontSize: '0.75rem', color: theme.yellowText }}>{t('position')}</p>
@@ -609,7 +609,7 @@ export default function ToleranceCalculator() {
                 </div>
                 <div>
                   <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>{language === 'ro' ? 'Tip' : 'Type'}</p>
-                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#059669' }}>{result.typeLabel}</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#059669' }}>{result.type === 'shaft' ? t('shaft') : t('hole')}</p>
                 </div>
                 <div>
                   <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>{language === 'ro' ? 'Poziție' : 'Position'}</p>
