@@ -330,16 +330,24 @@ export default function ToleranceCalculator() {
     <div style={{ minHeight: '100vh', backgroundColor: theme.bg, padding: '2rem', transition: 'background-color 0.3s ease' }}>
       <style>{`
         @media (max-width: 768px) {
-          .header-buttons {
+          .header-container {
             flex-direction: column !important;
-            gap: 0.5rem !important;
+            align-items: center !important;
+            text-align: center !important;
+          }
+          .header-title {
+            width: 100%;
+            margin-bottom: 1rem !important;
+          }
+          .header-buttons {
+            gap: 0.75rem !important;
           }
         }
       `}</style>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
         {/* Header cu Dark Mode Toggle și Language Switch */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem', gap: '1rem' }}>
-          <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: theme.textPrimary, marginBottom: '0' }}>
+        <div className="header-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', gap: '1rem' }}>
+          <h1 className="header-title" style={{ fontSize: '2rem', fontWeight: 'bold', color: theme.textPrimary, marginBottom: '0' }}>
             {t('title')}
           </h1>
           <div className="header-buttons" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
