@@ -207,6 +207,7 @@ export default function ToleranceCalculator() {
   const [error, setError] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState<'ro' | 'en'>('ro');
+  const [unit, setUnit] = useState<'um' | 'mm'>('um');
 
   // Ref pentru scroll la rezultate
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -329,11 +330,11 @@ export default function ToleranceCalculator() {
     <div style={{ minHeight: '100vh', backgroundColor: theme.bg, padding: '2rem', transition: 'background-color 0.3s ease' }}>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
         {/* Header cu Dark Mode Toggle și Language Switch */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: theme.textPrimary, marginBottom: '0' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', gap: '1rem' }}>
+          <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: theme.textPrimary, marginBottom: '0' }}>
             {t('title')}
           </h1>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
             {/* Language Switch */}
             <button
               onClick={() => setLanguage(language === 'ro' ? 'en' : 'ro')}
@@ -343,7 +344,7 @@ export default function ToleranceCalculator() {
                 border: `2px solid ${theme.border}`,
                 borderRadius: '0.5rem',
                 cursor: 'pointer',
-                fontSize: '1rem',
+                fontSize: '0.9rem',
                 fontWeight: 'bold',
                 transition: 'all 0.3s ease',
                 color: theme.textPrimary,
@@ -374,13 +375,33 @@ export default function ToleranceCalculator() {
             >
               {isDarkMode ? '☀️' : '🌙'}
             </button>
+
+            {/* Unit Selector */}
+            <select
+              value={unit}
+              onChange={(e) => setUnit(e.target.value as 'um' | 'mm')}
+              style={{
+                padding: '0.5rem 0.75rem',
+                backgroundColor: theme.bgCard,
+                border: `2px solid ${theme.border}`,
+                borderRadius: '0.5rem',
+                cursor: 'pointer',
+                fontSize: '0.9rem',
+                fontWeight: 'bold',
+                color: theme.textPrimary,
+                transition: 'all 0.3s ease',
+              }}
+            >
+              <option value="um">µm</option>
+              <option value="mm">mm</option>
+            </select>
           </div>
         </div>
 
         {/* Live Selection Display */}
         <div style={{ backgroundColor: theme.yellowBg, border: `2px solid ${theme.yellowBorder}`, borderRadius: '0.5rem', padding: '1rem', marginBottom: '1.5rem', transition: 'all 0.3s ease' }}>
           <p style={{ fontSize: '0.75rem', color: theme.yellowText, textTransform: 'uppercase', fontWeight: 'bold', marginBottom: '0.5rem' }}>{t('selection')}</p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1rem' }}>
             <div>
               <p style={{ fontSize: '0.75rem', color: theme.yellowText }}>{t('type')}</p>
               <p style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textPrimary }}>{type === 'shaft' ? t('shaft') : t('hole')}</p>
@@ -602,7 +623,7 @@ export default function ToleranceCalculator() {
           <div ref={resultsRef}>
             {/* Results Summary Box */}
             <div style={{ backgroundColor: theme.bgCard, borderRadius: '0.5rem', boxShadow: isDarkMode ? '0 4px 6px rgba(0,0,0,0.3)' : '0 4px 6px rgba(0,0,0,0.1)', padding: '1.5rem', marginBottom: '2rem', transition: 'all 0.3s ease' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
                 <div>
                   <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginBottom: '0.25rem', textTransform: 'uppercase', fontWeight: 'bold' }}>{language === 'ro' ? 'Dimensiune nominală' : 'Nominal Dimension'}</p>
                   <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#4f46e5' }}>{result.dimension} mm</p>
@@ -628,24 +649,24 @@ export default function ToleranceCalculator() {
                 {/* Abaterile */}
                 <div style={{ borderLeft: '4px solid #ef4444', paddingLeft: '1rem' }}>
                   <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>{t('upperDeviation')}</p>
-                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#ef4444' }}>{result.deviationUpper} µm</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#ef4444' }}>{unit === 'um' ? result.deviationUpper : (result.deviationUpper/1000).toFixed(3)} {unit === 'um' ? 'µm' : 'mm'}</p>
                 </div>
 
                 <div style={{ borderLeft: '4px solid #3b82f6', paddingLeft: '1rem' }}>
                   <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>{t('lowerDeviation')}</p>
-                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6' }}>{result.deviationLower} µm</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6' }}>{unit === 'um' ? result.deviationLower : (result.deviationLower/1000).toFixed(3)} {unit === 'um' ? 'µm' : 'mm'}</p>
                 </div>
 
                 {/* Toleranță */}
                 <div style={{ borderLeft: '4px solid #f59e0b', paddingLeft: '1rem' }}>
                   <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>{t('fundamentalTolerance')} ({result.precisionClass})</p>
-                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#f59e0b' }}>{result.tolerance} {result.toleranceUnit}</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#f59e0b' }}>{unit === 'um' ? result.tolerance : (parseInt(result.tolerance)/1000).toFixed(3)} {unit === 'um' ? 'µm' : 'mm'}</p>
                 </div>
 
                 {/* Toleranță calculată */}
                 <div style={{ borderLeft: '4px solid #10b981', paddingLeft: '1rem' }}>
                   <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>{t('calculatedTolerance')}</p>
-                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#10b981' }}>{result.calculatedTolerance} mm</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#10b981' }}>{unit === 'um' ? (parseFloat(result.calculatedTolerance)*1000).toFixed(0) : result.calculatedTolerance} {unit === 'um' ? 'µm' : 'mm'}</p>
                 </div>
               </div>
             </div>
@@ -655,16 +676,16 @@ export default function ToleranceCalculator() {
               <h3 style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textPrimary, marginBottom: '1rem' }}>
                 {t('dimensionLimits')}
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
                 <div>
                   <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>{t('dimensionMax')}</p>
-                  <p style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#10b981' }}>{result.dimensionMax} mm</p>
-                  <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginTop: '0.25rem' }}>Dn + es = {result.dimension} + {(result.deviationUpper/1000).toFixed(3)}</p>
+                  <p style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#10b981' }}>{unit === 'um' ? (parseFloat(result.dimensionMax)*1000).toFixed(0) : result.dimensionMax} {unit === 'um' ? 'µm' : 'mm'}</p>
+                  <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginTop: '0.25rem' }}>Dn + es = {unit === 'um' ? result.dimension*1000 : result.dimension} + {unit === 'um' ? result.deviationUpper : (result.deviationUpper/1000).toFixed(3)}</p>
                 </div>
                 <div>
                   <p style={{ fontSize: '0.875rem', color: theme.textSecondary, marginBottom: '0.25rem' }}>{t('dimensionMin')}</p>
-                  <p style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#10b981' }}>{result.dimensionMin} mm</p>
-                  <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginTop: '0.25rem' }}>Dn + ei = {result.dimension} + {(result.deviationLower/1000).toFixed(3)}</p>
+                  <p style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#10b981' }}>{unit === 'um' ? (parseFloat(result.dimensionMin)*1000).toFixed(0) : result.dimensionMin} {unit === 'um' ? 'µm' : 'mm'}</p>
+                  <p style={{ fontSize: '0.75rem', color: theme.textSecondary, marginTop: '0.25rem' }}>Dn + ei = {unit === 'um' ? result.dimension*1000 : result.dimension} + {unit === 'um' ? result.deviationLower : (result.deviationLower/1000).toFixed(3)}</p>
                 </div>
               </div>
             </div>
