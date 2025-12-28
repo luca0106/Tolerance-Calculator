@@ -328,13 +328,26 @@ export default function ToleranceCalculator() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: theme.bg, padding: '2rem', transition: 'background-color 0.3s ease' }}>
+      <style>{`
+        @media (max-width: 768px) {
+          .header-buttons {
+            flex-direction: column !important;
+            width: 100%;
+            gap: 0.5rem !important;
+          }
+          .header-buttons button,
+          .header-buttons select {
+            width: 100%;
+          }
+        }
+      `}</style>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
         {/* Header cu Dark Mode Toggle și Language Switch */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', gap: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem', gap: '1rem', flexWrap: 'wrap' }}>
           <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: theme.textPrimary, marginBottom: '0' }}>
             {t('title')}
           </h1>
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <div className="header-buttons" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
             {/* Language Switch */}
             <button
               onClick={() => setLanguage(language === 'ro' ? 'en' : 'ro')}
