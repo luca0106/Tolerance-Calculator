@@ -262,8 +262,9 @@ export default function ToleranceCalculator() {
       return;
     }
 
-    // Găsesc intervalul din tabel
-    const row = toleranceTable.find((r) => dim >= r.rangeMin && dim <= r.rangeMax);
+    // Găsesc intervalul din tabel (ultima care match-ează pentru a lua cel mai mare interval)
+    const matchingRows = toleranceTable.filter((r) => dim >= r.rangeMin && dim <= r.rangeMax);
+    const row = matchingRows[matchingRows.length - 1];
     if (!row) {
       setError(t('error_interval'));
       return;
@@ -290,11 +291,11 @@ export default function ToleranceCalculator() {
     let es: number, ei: number;
     
     if (type === 'shaft') {
-      // ARBORI - extraiu es și ei
+      // ARBORI 
       es = deviations.es || 0;
       ei = deviations.ei || 0;
     } else {
-      // ALEZAJE - extraiu ES și EI (notația cu majuscule)
+      // ALEZAJE 
       es = deviations.ES || 0;
       ei = deviations.EI || 0;
     }

@@ -1,5 +1,5 @@
 // =====================================================================
-// PARTEA 1: TOLERANȚE (IT GRADES) - Păstrat din codul tău (Corect)
+// PARTEA 1: TOLERANȚE (IT GRADES) 
 // =====================================================================
 
 export interface ToleranceRow {
@@ -60,8 +60,7 @@ export const precisionClasses: Record<string, PrecisionClass> = {
 };
 
 // =====================================================================
-// PARTEA 2: ABATERI FUNDAMENTALE (Deviations) - ÎNLOCUIT COMPLET
-// Aceasta este logica corectă pentru 60-100 mm
+// PARTEA 2: ABATERI FUNDAMENTALE (Deviations) 
 // =====================================================================
 
 export interface Deviation {
@@ -81,7 +80,7 @@ const shaft_50_65: Record<string, Deviation> = {
 };
 
 const shaft_65_80: Record<string, Deviation> = {
-  ...shaft_50_65, // Moștenește valorile comune
+  ...shaft_50_65, 
   n: { value: 20, type: 'ei' }, p: { value: 32, type: 'ei' }, r: { value: 43, type: 'ei' },
   s: { value: 59, type: 'ei' }, t: { value: 75, type: 'ei' }, u: { value: 102, type: 'ei' },
   v: { value: 120, type: 'ei' }, x: { value: 146, type: 'ei' }, y: { value: 174, type: 'ei' },
@@ -143,7 +142,7 @@ export function getDeviationData(
     }
   } else {
     // Alezaje
-    if (dimension <= 80) {
+    if (dimension < 80) {
       deviations = hole_50_80;
     } else {
       deviations = hole_80_120;
